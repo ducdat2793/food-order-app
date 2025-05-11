@@ -51,7 +51,7 @@ jobs:
         mvn clean install -DskipTests=false
         
     - name: Upload user-service JAR
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: user-service
         path: user-service.zip_expanded/user-service/target/*.jar
