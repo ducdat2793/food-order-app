@@ -2,16 +2,16 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "main" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout source code
+    - name: Checkout code
       uses: actions/checkout@v3
 
     - name: Set up Java 17
@@ -20,5 +20,12 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Build with Maven
-      run: mvn clean install -DskipTests=false
+    - name: Build menu-service
+      run: |
+        cd menu-service.zip_expanded/menu-service
+        mvn clean install -DskipTests=false
+
+    - name: Build order-service
+      run: |
+        cd order-service.zip_expanded/order-service
+        mvn clean install -DskipTests=false
