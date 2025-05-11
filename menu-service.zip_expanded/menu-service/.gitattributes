@@ -1,2 +1,11 @@
 /mvnw text eol=lf
 *.cmd text eol=crlf
+
+# ignore dir Swagger UI
+swagger-ui/** linguist-vendored
+
+# ignore fir frontend (if exist)
+frontend/** linguist-vendored
+
+# ignore JavaScript file auto create
+*.js linguist-generated
