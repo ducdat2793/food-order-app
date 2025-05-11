@@ -1,0 +1,50 @@
+package com.example.menu_service.service;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.menu_service.dto.MenuRequest;
+import com.example.menu_service.model.Menu;
+import com.example.menu_service.repository.MenuRepository;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class MenuService {
+
+	@Autowired
+	private MenuRepository repo;
+	@Autowired
+	private ModelMapper modelMapper;
+
+	public List<Menu> getAllMenus() {
+		return repo.findAll();
+	}
+
+	public Menu createMenu(MenuRequest request, String createdBy) {
+		Menu menu = modelMapper.map(request, Menu.class);
+		menu.setCreatedDate(LocalDateTime.now());
+		menu.setCreatedBy(createdBy);
+		menu = repo.save(menu);
+		return menu;
+	}
+
+	public Menu updateMenu(Long id, MenuRequest request, String updatedBy) {
+		Optional<Menu> menu = repo.findById(id);
+		if (menu.isPresent()) {
+			menu.get().setUpdatedDate(LocalDateTime.now());
+			menu.get().setUpdatedBy(updatedBy);
+			return modelMapper.map(request, Menu.class);
+		} else {
+			throw new RuntimeException("Job not found with id " + id);
+		}
+
+	}
+
+}

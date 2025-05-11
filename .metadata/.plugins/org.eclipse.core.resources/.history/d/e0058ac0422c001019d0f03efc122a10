@@ -1,0 +1,30 @@
+spring.application.name=notification-service
+spring.profiles.active=dev
+server.port=8084
+
+# JWT Secret Key
+app.jwt.secret=my-secret-key-which-needs-to-be-long-enough
+app.jwt.expiration=3600000  # 1 hour
+
+# H2 Database
+spring.datasource.url=jdbc:h2:mem:food-app-db
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2-console
+
+# Hibernate
+spring.jpa.show-sql=true
+spring.jpa.hibernate.ddl-auto=update
+
+# Eureka
+eureka.client.service-url.defaultZone = http://localhost:8761/eureka
+
+# KAFKA
+spring.kafka.bootstrap-servers=192.168.99.100:9092
+spring.kafka.consumer.group-id=notification-group
+spring.kafka.consumer.auto-offset-reset=earliest
+spring.kafka.consumer.key-deserializer=org.apache.kafka.common.serialization.StringDeserializer
+spring.kafka.consumer.value-deserializer=org.apache.kafka.common.serialization.StringDeserializer

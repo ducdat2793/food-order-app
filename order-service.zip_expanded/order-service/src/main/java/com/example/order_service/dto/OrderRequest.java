@@ -1,0 +1,24 @@
+package com.example.order_service.dto;
+
+import java.time.LocalDateTime;
+import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class OrderRequest {
+
+	private Map<Long, Integer> listItems; // Item ID, quantity of Item
+	private String customerPhone;
+	private String customerEmail;
+	private String customerAddress;
+	@JsonIgnore
+	private LocalDateTime createdTime;
+	
+}

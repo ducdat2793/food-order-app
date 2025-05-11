@@ -1,0 +1,23 @@
+package com.example.order_service.model;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Entity
+@Table(name = "orders")
+
+public class Order {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	private Long userId;
+
+	@ElementCollection
+	private List<Long> menuItemIds;
+
+	private String status; // PENDING, COOKING, DONE, DELIVERING, DELIVERED
+
+	private LocalDateTime createdAt;
+}

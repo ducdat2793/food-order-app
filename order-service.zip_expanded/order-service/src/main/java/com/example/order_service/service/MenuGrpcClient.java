@@ -1,0 +1,28 @@
+package com.example.order_service.service;
+
+import org.springframework.stereotype.Service;
+
+import com.food.grpc.menu.MenuRequest;
+import com.food.grpc.menu.MenuResponse;
+import com.food.grpc.menu.MenuServiceGrpc;
+
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
+
+@Service
+public class MenuGrpcClient {
+
+	private final MenuServiceGrpc.MenuServiceBlockingStub stub;
+
+    public MenuGrpcClient() {
+        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 9090)
+            .usePlaintext()
+            .build();
+        stub = MenuServiceGrpc.newBlockingStub(channel);
+    }
+
+    public MenuResponse getMenuById(long id) {
+        MenuRequest request = MenuRequest.newBuilder().setId(id).build();
+        return stub.getMenuItem(request);
+    }    
+}

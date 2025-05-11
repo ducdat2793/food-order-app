@@ -1,0 +1,24 @@
+package com.example.menu_service.config;
+
+import org.springframework.stereotype.Component;
+
+
+@Component
+public class GrpcServer {
+
+	/**
+	 * Not allow create gRPC server if using @GrpcService (class MenuGrpcService)
+	 * */
+	
+//	@PostConstruct
+//    public void start() throws IOException, InterruptedException {
+//        Server server = ServerBuilder.forPort(9090)
+//            .addService(new MenuGrpcService())
+//            .build()
+//            .start();
+//
+//        System.out.println("gRPC Server started on port 9090");
+//        Runtime.getRuntime().addShutdownHook(new Thread(server::shutdown));
+//    }
+	
+}

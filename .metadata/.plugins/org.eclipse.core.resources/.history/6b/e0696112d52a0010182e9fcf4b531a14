@@ -1,0 +1,13 @@
+package com.example.order_service.service;
+
+import org.springframework.stereotype.Service;
+
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
+
+@Service
+public class MenuGrpcClient {
+
+	
+    
+}

@@ -1,0 +1,28 @@
+package com.example.menu_service.service;
+
+import org.springframework.stereotype.Service;
+
+import com.food.grpc.menu.MenuRequest;
+import com.food.grpc.menu.MenuResponse;
+import com.food.grpc.menu.MenuServiceGrpc;
+
+import io.grpc.stub.StreamObserver;
+
+@Service
+public class MenuGrpcService extends MenuServiceGrpc.MenuServiceImplBase {
+
+	
+	 @Override
+	    public void getMenuItem(MenuRequest request, StreamObserver<MenuResponse> responseObserver) {
+	        // Dummy data (có thể fetch từ DB)
+	        MenuResponse response = MenuResponse.newBuilder()
+	            .setId(request.getId())
+	            .setName("Pizza Margherita")
+	            .setPrice(8.99)
+	            .build();
+
+	        responseObserver.onNext(response);
+	        responseObserver.onCompleted();
+	    }
+	 
+}

@@ -1,0 +1,10 @@
+package com.example.menu_service.service;
+
+import org.springframework.stereotype.Service;
+
+import com.food.grpc.menu.MenuServiceGrpc;
+
+@Service
+public class MenuGrpcService extends MenuServiceGrpc.MenuServiceImplBase{
+	 
+}

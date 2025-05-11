@@ -1,0 +1,19 @@
+package com.example.notification_service.service;
+
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.stereotype.Service;
+
+@Service
+public class OrderEventListener {
+
+	@KafkaListener(topics = "order-events", groupId = "notification-group")
+	public void handleOrderEvent(String message) {
+		System.out.println("🔔 Notification Received: " + message);
+		System.out.println("🔔 Send smg to custommer " + message);
+		/*
+		 * After recieve message, send notificate for customer, also send order to other
+		 * microservice like kitchen-service or deliver-service
+		 */
+	}
+
+}

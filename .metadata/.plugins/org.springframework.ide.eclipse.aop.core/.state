@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aop-reference-model>
+<aop-project name="notification-service"/>
+<aop-project name="order-service"/>
+<aop-project name="eureka-server"/>
+<aop-project name="user-service"/>
+<aop-project name="menu-service"/>
+<aop-project name="api-gateway"/>
+</aop-reference-model>

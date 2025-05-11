@@ -1,0 +1,37 @@
+package com.example.menu_service.service;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.menu_service.dto.MenuRequest;
+import com.example.menu_service.model.Menu;
+import com.example.menu_service.repository.MenuRepository;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class MenuService {
+
+	@Autowired
+	private MenuRepository repo;
+	@Autowired
+	private ModelMapper modelMapper;
+
+	public List<Menu> getAllMenus() {
+		return repo.findAll();
+	}
+
+	public Menu createPost(MenuRequest request, String createdBy) {
+		Menu menu = modelMapper.map(request, Menu.class);
+		menu.setCreatedDate(LocalDateTime.now());
+		menu.setCreatedBy(createdBy);
+		menu = repo.save(menu);
+		return menu;
+	}
+
+}

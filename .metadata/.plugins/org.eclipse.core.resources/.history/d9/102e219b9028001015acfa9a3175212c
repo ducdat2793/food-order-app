@@ -1,0 +1,6 @@
+spring.application.name=user-service
+
+# JWT Secret Key
+app.jwt.secret=my-secret-key-which-needs-to-be-long-enough
+app.jwt.expiration=3600000  # 1 hour
+

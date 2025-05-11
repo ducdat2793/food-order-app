@@ -1,0 +1,16 @@
+spring.application.name=api-gateway
+server.port=8080
+
+# USER-SERVICE
+spring.cloud.gateway.routes[0].id=user-service
+spring.cloud.gateway.routes[0].uri=lb://user-service
+## lb://user-service mean use Load Balancer and service name register with Eureka.
+spring.cloud.gateway.routes[0].predicates[0]=Path=/user-service/**
+spring.cloud.gateway.routes[0].filters[0]=StripPrefix=1
+
+# Eureka client config
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka
+
+# Enable service discovery routing
+spring.cloud.gateway.discovery.locator.enabled=true
+spring.cloud.gateway.discovery.locator.lower-case-service-id=true

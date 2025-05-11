@@ -1,0 +1,31 @@
+package com.example.order_service.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.stereotype.Service;
+
+import com.example.order_service.dto.OrderRequest;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+@Service
+public class OrderCreateEventProducer {
+
+	@Autowired
+	private KafkaTemplate<String, String> kafkaTemplate;
+
+	private static final String TOPIC = "order.created";
+
+	private final ObjectMapper objectMapper = new ObjectMapper();
+
+	public void sendOrderEvent(OrderRequest event) {
+		try {
+			String json = objectMapper.writeValueAsString(event);
+			kafkaTemplate.send(TOPIC, json);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+}

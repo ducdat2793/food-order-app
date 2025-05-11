@@ -1,0 +1,25 @@
+spring.application.name=order-service
+spring.profiles.active=dev
+server.port=8083
+
+# JWT Secret Key
+app.jwt.secret=my-secret-key-which-needs-to-be-long-enough
+app.jwt.expiration=3600000  # 1 hour
+
+# H2 Database
+spring.datasource.url=jdbc:h2:mem:food-app-db
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2-console
+
+# Eureka
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka/
+
+# Kafka
+spring.kafka.bootstrap-servers=192.168.99.100:9092
+spring.kafka.producer.key-serializer=org.apache.kafka.common.serialization.StringSerializer
+spring.kafka.producer.value-serializer=org.apache.kafka.common.serialization.StringSerializer
+

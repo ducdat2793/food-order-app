@@ -1,0 +1,13 @@
+package com.example.menu_service.service;
+
+import org.springframework.stereotype.Service;
+
+import com.example.menu_service.dto.MenuRequest;
+import com.food.grpc.menu.MenuResponse;
+import com.food.grpc.menu.MenuServiceGrpc;
+
+import io.grpc.stub.StreamObserver;
+
+@Service
+public class MenuGrpcService extends MenuServiceGrpc.MenuServiceImplBase{
+	 

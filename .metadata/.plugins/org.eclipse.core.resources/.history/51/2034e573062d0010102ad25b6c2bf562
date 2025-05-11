@@ -1,0 +1,76 @@
+package com.example.order_service.controller;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Map.Entry;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.order_service.dto.OrderEvent;
+import com.example.order_service.dto.OrderRequest;
+import com.example.order_service.service.MenuGrpcClient;
+import com.example.order_service.service.OrderEventProducer;
+import com.food.grpc.menu.MenuResponse;
+
+import io.swagger.v3.oas.annotations.Operation;
+
+@RestController
+@RequestMapping("/api/orders")
+public class OrderController {
+
+	@Autowired
+	private MenuGrpcClient menuGrpcClient;
+
+	@Autowired
+	private OrderEventProducer eventProducer;
+
+	@Operation(summary = "Test gRPC api call menu-service")
+	@GetMapping
+	public ResponseEntity<String> orderInfo(@RequestParam long menuId) {
+		MenuResponse menu = menuGrpcClient.getMenuById(menuId);
+		String result = "Your item ordered: " + menu.getName() + " - Price " + menu.getPrice();
+		return ResponseEntity.ok(result);
+	}
+
+	@Operation(summary = "Place order")
+	@PostMapping
+	public ResponseEntity<String> placeOrder(@RequestBody OrderRequest orderRequest) {
+		StringBuilder msg = new StringBuilder();
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		LocalDateTime orderTime = LocalDateTime.now();
+		String orderTimeStr = orderTime.format(formatter);
+
+		msg.append("Order placed at:" + orderTimeStr + "\n");
+
+		for (Entry<Long, Integer> entry : orderRequest.getListItems().entrySet()) {
+			Long itemId = entry.getKey();
+			Integer quantity = entry.getValue();
+			MenuResponse menu = menuGrpcClient.getMenuById(itemId);
+			msg.append(
+					"Item: " + menu.getName() + ", Quantity: " + quantity + ", Price: " + (menu.getPrice() * quantity));
+			msg.append("\n");
+		}
+		msg.append("--------------------------\n");
+		msg.append("Customer phone: " + orderRequest.getCustomerPhone() + "\n");
+		msg.append("Customer email: " + orderRequest.getCustomerEmail() + "\n");
+		msg.append("Customer address: " + orderRequest.getCustomerAddress() + "\n");
+		msg.append("-------FINISH ORDER-------");
+		// Save order to Database (with status PENDDING)
+		// ....
+		// Send msg to notification-service
+		OrderEvent event = new OrderEvent();
+		event.setOrderDetailSmg(msg.toString());
+		event.setOrderRequest(orderRequest);
+		eventProducer.sendOrderEvent(event);
+		return ResponseEntity.ok(event.toString());
+	}
+
+}

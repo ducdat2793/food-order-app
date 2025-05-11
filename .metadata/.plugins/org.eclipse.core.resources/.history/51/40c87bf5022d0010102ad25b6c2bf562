@@ -1,0 +1,8 @@
+package com.example.order_service.dto;
+
+public class OrderEvent {
+
+	private String orderDetailSmg;
+	private String orderObject;
+	
+}
