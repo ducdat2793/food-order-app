@@ -19,6 +19,21 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
+        
+    - name: Build eureka-server
+      run: |
+        cd eureka-server.zip_expanded/eureka-server
+        mvn clean install -DskipTests=false
+        
+    - name: Build api-gateway
+      run: |
+        cd api-gateway.zip_expanded/api-gateway
+        mvn clean install -DskipTests=false
+        
+    - name: Build user-service
+      run: |
+        cd user-service.zip_expanded/user-service
+        mvn clean install -DskipTests=false
 
     - name: Build menu-service
       run: |
@@ -28,4 +43,9 @@ jobs:
     - name: Build order-service
       run: |
         cd order-service.zip_expanded/order-service
+        mvn clean install -DskipTests=false
+        
+    - name: Build notification-service
+      run: |
+        cd notification-service.zip_expanded/notification-service
         mvn clean install -DskipTests=false
