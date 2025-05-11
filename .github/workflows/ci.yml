@@ -49,3 +49,9 @@ jobs:
       run: |
         cd notification-service.zip_expanded/notification-service
         mvn clean install -DskipTests=false
+        
+    - name: Upload user-service JAR
+      uses: actions/upload-artifact@v3
+      with:
+        name: user-service-jar
+        path: user-service.zip_expanded/user-service/target/*.jar
