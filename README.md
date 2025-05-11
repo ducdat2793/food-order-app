@@ -102,8 +102,8 @@ http://localhost:8080/webjars/swagger-ui/index.html
 
 ---
 
-## Kafka UI
-Visit the following URL to explore APIs:
+## 📃 Kafka UI
+Visit the following URL to explore Kafka UI:
 
 ```
 http://192.168.99.100:8000/
