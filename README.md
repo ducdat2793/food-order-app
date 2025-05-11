@@ -102,6 +102,13 @@ http://localhost:8080/webjars/swagger-ui/index.html
 
 ---
 
+## Kafka UI
+Visit the following URL to explore APIs:
+
+```
+http://192.168.99.100:8000/
+```
+
 ## ✍️ CI/CD Overview
 
 * CI is handled via GitHub Actions (`.github/workflows/ci.yml`)
